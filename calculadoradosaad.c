@@ -94,10 +94,32 @@ void subtrair(char a[], char b[], char resultado[])
 }
 
 void multiplicar(char a[], char b[], char resultado[])
-{ 
+{
     int size_operador1 = strlen(a);
     int size_operador2 = strlen(b);
+    int tamanho_resultado = size_operador1 + size_operador2 - 1; //vai ser a variavel q vai determinar o tamanho do resultado da multiplicação, no caso, 501 + 501 
+    int i, j;
+
+    for ( i = 0; i < tamanho_resultado; i++)
+    {
+        resultado[i] = '0'; // começa recebendo 0 pra iniciar os digitos da multiplicação
+    }
     
+    for (i = 0; i < size_operador1; i++)
+    {
+        int valor1 = a[size_operador1 - 1 - i] - '0'; //itera cada digito de A, indo da direita pra esquerda
+        int carry = 0; //carry tem q começar com 0 pra receber o valor da multiplicacao
+        
+        for (j = 0; j < size_operador2; j++) 
+        {
+            int valor2 = b[size_operador2 - 1 - j] - '0'; //itera os digitos de B
+            int multiplicacao = valor1 * valor2 + carry + (resultado[i + j] - '0'); // acrescenta o valor de A * B + o carry q já tem o valor de A, dai armazena o resultado em [i + j]
+            carry = multiplicacao / 10;
+            resultado[i + j] = (multiplicacao % 10) + '0';
+        }
+        
+        resultado[i + size_operador2] = carry + '0';
+    }
 }
 
 void inverterString(char resultado[])
@@ -138,6 +160,7 @@ void removerZerosEsquerda(char resultado[])
         resultado[i] = resultado[i + 1];
         }
         resultado[i] = '\0';
+
     }
 }
 
@@ -145,13 +168,15 @@ int main()
 {
     char a[501], b[501], resultado[1002];
     int n, i, o;
-
+    char resultados[100][1002];
+    int operador_anterior = 1;
+    
     scanf("%d", &n);
 
     for (i = 0; i < n; i++)
     {
         scanf("%s %s %d", a, b, &o);
-
+        
         if (o == 1)
         {
             somar(a, b, resultado);
@@ -167,14 +192,23 @@ int main()
 
         else if (o == 3)
         {
-        }
+            multiplicar(a, b, resultado);
+            inverterString(resultado);
+            removerZerosEsquerda(resultado);
+            
+        } 
         else
         {
             printf("Opção inválida\n");
             continue;
         }
+       
+        strcpy(resultados[i], resultado); // Armazena o resultado atual em 'resultados'
+    }
 
-        printf("%s\n", resultado);
+    for (i = 0; i < n; i++)
+    {
+        printf("%s\n", resultados[i]); // Imprime os resultados armazenados
     }
 
     return 0;
