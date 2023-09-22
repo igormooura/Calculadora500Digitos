@@ -104,6 +104,7 @@ void multiplicar(char a[], char b[], char resultado[])
     {
         resultado[i] = '0'; // começa recebendo 0 pra iniciar os digitos da multiplicação
     }
+    resultado[i] ='\0';
     
     for (i = 0; i < size_operador1; i++)
     {
