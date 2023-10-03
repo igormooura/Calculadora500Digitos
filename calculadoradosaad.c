@@ -56,7 +56,7 @@ void subtrair(char a[], char b[], char resultado[])
         size_operador1 = size_operador2; // o tamanho de A fica do mesmo tamanho de B, os "00000" do lado do numero
         size_operador2 = temp_size; // aqui é pra B ficar do tamanho do valor original de A, pra voltar ao normal
     }
-    else if (comparacao == 0)
+    else if (comparacao == 0) //se a for igual a b, comparação recebe o valor 0 (strcmp que faz isso)
     {
         strcpy(resultado, "0");
         return;
@@ -85,7 +85,7 @@ void subtrair(char a[], char b[], char resultado[])
         resultado[j] = subtracao + '0';
     }
 
-    if (comparacao < 0) //aqui vê se a é realmente menor q B, eu usei a função q eu declarei na linha 47
+    if (comparacao < 0) 
     {
         resultado[j] = '-';
         j++;
@@ -100,11 +100,11 @@ void multiplicar(char a[], char b[], char resultado[])
     int tamanho_resultado = size_operador1 + size_operador2 - 1; //vai ser a variavel q vai determinar o tamanho do resultado da multiplicação, no caso, 501 + 501 
     int i, j;
 
-    for ( i = 0; i < tamanho_resultado; i++)
+    for ( i = 0; i <= tamanho_resultado; i++)
     {
         resultado[i] = '0'; // começa recebendo 0 pra iniciar os digitos da multiplicação
     }
-    resultado[i] ='\0';
+    resultado[i] = '\0';
     
     for (i = 0; i < size_operador1; i++)
     {
@@ -130,8 +130,8 @@ void inverterString(char resultado[])
     for (k = 0; k < len / 2; k++)
     {
         char temp = resultado[k];
-        resultado[k] = resultado[len - 1 - k];
-        resultado[len - 1 - k] = temp;
+        resultado[k] = resultado[len - 1 - k]; //resultado é atrelado ao valor "k"
+        resultado[len - 1 - k] = temp; // e iss completa a inversão de valores
     }
 }
 void removerZerosEsquerda(char resultado[])
